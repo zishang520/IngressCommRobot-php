@@ -177,7 +177,7 @@ class Ingress
     // 获取v值
     public function get_v()
     {
-        $url = 'https://www.ingress.com/intel';
+        $url = 'https://intel.ingress.com/intel';
         $info = $this->curl($url, null);
         if ($info['status'] != 200) {
             return false;
@@ -215,7 +215,7 @@ class Ingress
         // 载入对象
         $html = new simple_html_dom();
 
-        $header['Referer'] = 'Referer: https://www.ingress.com/intel';
+        $header['Referer'] = 'Referer: https://intel.ingress.com/intel';
         $_info = $this->curl($login_url, null, $header);
         if ($_info['status'] != 200) {
             $this->ShowError('Get Login Url Error');
@@ -229,7 +229,7 @@ class Ingress
         $html->load($_info['info']);
         $refresh = $html->find('meta[http-equiv="refresh"]');
         // 备用
-        $url = 'https://accounts.google.com/ServiceLogin?continue=https%3A%2F%2Fappengine.google.com%2F_ah%2Fconflogin%3Fcontinue%3Dhttps%3A%2F%2Fwww.ingress.com%2Fintel&rip=1&nojavascript=1&service=ah&ltmpl=gm';
+        $url = 'https://accounts.google.com/ServiceLogin?continue=https%3A%2F%2Fappengine.google.com%2F_ah%2Fconflogin%3Fcontinue%3Dhttps%3A%2F%intel.ingress.com%2Fintel&rip=1&nojavascript=1&service=ah&ltmpl=gm';
         foreach ($refresh as $key => $value) {
             preg_match('/(?<=url\=).+/sim', $value->content, $match);
             $url = htmlspecialchars_decode($match[0]);
@@ -296,10 +296,10 @@ class Ingress
     //Get message
     public function get_msg()
     {
-        $url = 'https://www.ingress.com/r/getPlexts';
+        $url = 'https://intel.ingress.com/r/getPlexts';
         $header['content-type'] = 'content-type: application/json; charset=UTF-8';
-        $header['Origin'] = 'Origin: https://www.ingress.com';
-        $header['Referer'] = 'Referer: https://www.ingress.com/intel';
+        $header['Origin'] = 'Origin: https://intel.ingress.com';
+        $header['Referer'] = 'Referer: https://intel.ingress.com/intel';
         $data = '{"minLatE6":' . $this->conf['minLatE6'] . ',"minLngE6":' . $this->conf['minLngE6'] . ',"maxLatE6":' . $this->conf['maxLatE6'] . ',"maxLngE6":' . $this->conf['maxLngE6'] . ',"minTimestampMs":' . strval(bcsub(microtime(true) * 1000, 60000 * $this->mintime)) . ',"maxTimestampMs":-1,"tab":"faction","ascendingTimestampOrder":true,"v":"' . $this->usertoken['v'] . '"}';
         $info = $this->curl($url, $data, $header);
         if ($info['status'] != 200) {
@@ -311,10 +311,10 @@ class Ingress
     //send message
     public function send_msg($msg)
     {
-        $url = 'https://www.ingress.com/r/sendPlext';
+        $url = 'https://intel.ingress.com/r/sendPlext';
         $header['content-type'] = 'content-type: application/json; charset=UTF-8';
-        $header['Origin'] = 'Origin: https://www.ingress.com';
-        $header['Referer'] = 'Referer: https://www.ingress.com/intel';
+        $header['Origin'] = 'Origin: https://intel.ingress.com';
+        $header['Referer'] = 'Referer: https://intel.ingress.com/intel';
         $data = '{"message":"' . $msg . '","latE6":' . $this->conf['latE6'] . ',"lngE6":' . $this->conf['lngE6'] . ',"tab":"faction","v":"' . $this->usertoken['v'] . '"}';
         $info = $this->curl($url, $data, $header);
         if ($info['status'] != 200) {
@@ -331,10 +331,10 @@ class Ingress
     // Passcode automatic exchange
     public function auto_passcode($code)
     {
-        $url = 'https://www.ingress.com/r/redeemReward';
+        $url = 'https://intel.ingress.com/r/redeemReward';
         $header['content-type'] = 'content-type: application/json; charset=UTF-8';
-        $header['Origin'] = 'Origin: https://www.ingress.com';
-        $header['Referer'] = 'Referer: https://www.ingress.com/intel';
+        $header['Origin'] = 'Origin: https://intel.ingress.com';
+        $header['Referer'] = 'Referer: https://intel.ingress.com/intel';
         $data = '{"passcode":"' . $code . '","v":"' . $this->usertoken['v'] . '"}';
         $info = $this->curl($url, $data, $header);
         if ($info['status'] != 200) {
